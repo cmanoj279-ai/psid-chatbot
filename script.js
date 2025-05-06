@@ -17,7 +17,7 @@ function sendMessage() {
 
     const response = getBotResponse(userInput);
     appendMessage('bot', response);
-  }, 1200);
+  }, 1500);
 }
 
 function appendMessage(sender, message) {
@@ -38,9 +38,8 @@ function handleQuickReply(value) {
 function getBotResponse(input) {
   input = input.toLowerCase();
 
-  const imgContainer = document.getElementById('residentialImageContainer');
   if (input === '1') {
-    imgContainer.style.display = 'none';
+    document.getElementById('residentialImageContainer').style.display = 'none';
     return "🔧 Our Services include:\n\n" +
            "🏗 Construction\n" +
            "🏢 Property Management\n" +
@@ -49,25 +48,25 @@ function getBotResponse(input) {
            "🌐 Web Design & Application\n" +
            "📱 Android & iOS Development";
   } else if (input === '2') {
-    imgContainer.style.display = 'none';
+    document.getElementById('residentialImageContainer').style.display = 'none';
     showQuickReplies(['Residential', 'Residential Villa', 'Commercial']);
     return "📋 Please choose a plan type:";
   } else if (input === 'residential') {
-    imgContainer.style.display = 'block';
+    document.getElementById('residentialImageContainer').style.display = 'block';
     return "🏠 Residential Plan includes basic apartment and home setups.";
   } else if (input === 'residential villa') {
-    imgContainer.style.display = 'none';
+    document.getElementById('residentialImageContainer').style.display = 'none';
     return "🏡 Residential Villa Plan includes premium villa construction and design.";
   } else if (input === 'commercial') {
-    imgContainer.style.display = 'none';
+    document.getElementById('residentialImageContainer').style.display = 'none';
     return "🏢 Commercial Plan includes office, warehouse, and business property solutions.";
   } else if (input === '3') {
-    imgContainer.style.display = 'none';
+    document.getElementById('residentialImageContainer').style.display = 'none';
     return "📍 Our Location:\n🏠 PSID Technologies, Bengaluru, Karnataka\n\n" +
-           "<a href='https://www.google.com/maps/place/Bengaluru,+Karnataka' target='_blank'>Open Location in Maps</a>";
+           "🗺 <a href='https://www.google.com/maps/place/Bengaluru,+Karnataka' target='_blank'>Open Location in Maps</a>";
   }
 
-  imgContainer.style.display = 'none';
+  document.getElementById('residentialImageContainer').style.display = 'none';
   showQuickReplies(['1', '2', '3']);
   return "🤖 I'm here to help! Please choose an option:\n\n" +
          "1️⃣ View Our Services\n" +
@@ -78,6 +77,7 @@ function getBotResponse(input) {
 function showQuickReplies(options) {
   const container = document.querySelector('.quick-buttons');
   container.innerHTML = '';
+
   options.forEach(option => {
     const btn = document.createElement('button');
     btn.textContent = option;
@@ -99,3 +99,4 @@ window.onload = function () {
     "2️⃣ View Our Plans\n" +
     "3️⃣ Contact Us / Find Our Location");
 };
+
