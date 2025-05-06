@@ -1,15 +1,12 @@
-/* General reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body Styling */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center fixed;
-  background-size: cover;
+  background: linear-gradient(to right, #3c8ce7, #00eaff);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -18,7 +15,6 @@ body {
   color: #fff;
 }
 
-/* Branding Section */
 .branding {
   position: absolute;
   top: 20px;
@@ -29,30 +25,33 @@ body {
 .branding p {
   font-size: 28px;
   font-weight: bold;
-  color: white;
   background-color: rgba(0, 0, 0, 0.7);
   padding: 15px;
   border-radius: 10px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-/* Chatbox Styling */
+.branding .tagline {
+  font-size: 14px;
+  color: whitesmoke;
+  font-style: italic;
+  margin: 5px;
+}
+
 .chatbox {
-  background: rgba(255, 255, 255, 0.95); 
-  width: 85%; 
-  max-width: 600px; 
-  height: 100%; 
-  max-height: 750px; 
+  background: rgba(255, 255, 255, 0.95);
+  width: 85%;
+  max-width: 600px;
+  height: 100%;
+  max-height: 750px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 20px; 
-  box-sizing: border-box;
+  padding: 20px;
 }
 
-/* Chatlog (Messages area) */
 .chatlog {
   flex: 1;
   padding: 10px;
@@ -70,7 +69,6 @@ body {
   border-radius: 20px;
   font-size: 16px;
   line-height: 1.6;
-  position: relative;
   animation: fadeIn 0.5s ease-in;
   word-wrap: break-word;
 }
@@ -84,12 +82,11 @@ body {
 
 .bot {
   align-self: flex-start;
-  background: #ececec;
+  background: #e0e0e0;
   color: #333;
   border-radius: 20px 20px 20px 5px;
 }
 
-/* Input area */
 .input-area {
   display: flex;
   flex-direction: column;
@@ -106,6 +103,12 @@ body {
   font-size: 16px;
 }
 
+.input-area input:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
 .input-area button {
   padding: 12px;
   background: #28a745;
@@ -120,7 +123,6 @@ body {
   background: #218838;
 }
 
-/* Quick reply buttons */
 .quick-buttons {
   display: flex;
   flex-direction: column;
@@ -143,7 +145,6 @@ body {
   background: #0056b3;
 }
 
-/* Contact links */
 .contact-links {
   text-align: center;
   padding: 15px;
@@ -164,7 +165,6 @@ body {
   text-decoration: underline;
 }
 
-/* Scrollbar styling */
 .chatlog::-webkit-scrollbar {
   width: 8px;
 }
@@ -174,7 +174,21 @@ body {
   border-radius: 10px;
 }
 
-/* Animation for fading in the messages */
+/* Image Container for Residential */
+#residentialImageContainer {
+  display: none;
+  text-align: center;
+  margin-top: 10px;
+  animation: fadeIn 1s ease-in;
+}
+
+#residentialImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -185,3 +199,4 @@ body {
     transform: translateY(0);
   }
 }
+
