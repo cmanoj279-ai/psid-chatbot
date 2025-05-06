@@ -1,45 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Property Services Chatbot - PSID Technology</title>
-  <link rel="stylesheet" href="style.css">
+  <title>PSID Chatbot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #3c8ce7, #00eaff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+    }
+
+    .branding {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+    }
+
+    .branding p {
+      font-size: 28px;
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    .branding .tagline {
+      font-size: 14px;
+      color: whitesmoke;
+      font-style: italic;
+      margin: 5px;
+    }
+
+    .chatbox {
+      background: rgba(255, 255, 255, 0.95);
+      width: 85%;
+      max-width: 600px;
+      height: 100%;
+      max-height: 750px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 20px;
+      margin-top: 80px;
+    }
+
+    .chatlog {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #f9f9f9;
+      scroll-behavior: smooth;
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 12px 18px;
+      border-radius: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+      animation: fadeIn 0.5s ease-in;
+      word-wrap: break-word;
+    }
+
+    .user {
+      align-self: flex-end;
+      background: #dcf8c6;
+      color: #333;
+      border-radius: 20px 20px 5px 20px;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background: #e0e0e0;
+      color: #333;
+      border-radius: 20px 20px 20px 5px;
+    }
+
+    .input-area {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      background: #fff;
+      border-top: 1px solid #ddd;
+    }
+
+    .input-area input {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .input-area input:focus {
+      outline: none;
+      border-color: #28a745;
+      box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+    }
+
+    .input-area button {
+      padding: 12px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .input-area button:hover {
+      background: #218838;
+    }
+
+    .quick-buttons {
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+    }
+
+    .quick-buttons button {
+      background: #007bff;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 25px;
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .quick-buttons button:hover {
+      background: #0056b3;
+    }
+
+    .contact-links {
+      text-align: center;
+      padding: 15px;
+      background: #ffffff;
+      font-size: 14px;
+      border-top: 1px solid #ddd;
+    }
+
+    .contact-links a {
+      display: block;
+      color: #007bff;
+      text-decoration: none;
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    .contact-links a:hover {
+      text-decoration: underline;
+    }
+
+    .chatlog::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chatlog::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 10px;
+    }
+
+    #residentialImageContainer {
+      display: none;
+      text-align: center;
+      margin-top: 10px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    #residentialImage {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .branding {
+        position: relative;
+        text-align: center;
+        margin-bottom: 15px;
+        top: auto;
+        left: auto;
+        padding: 0 10px;
+      }
+
+      .branding p {
+        font-size: 22px;
+        padding: 10px;
+      }
+
+      .branding .tagline {
+        font-size: 12px;
+        margin: 5px 0;
+      }
+
+      #residentialImageContainer {
+        margin-top: 10px;
+      }
+
+      .chatbox {
+        margin-top: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="branding">
     <p>PSID Technology Pvt. Ltd</p>
-    <p class="tagline">Building your future today</p>
+    <div class="tagline">Building your future today</div>
   </div>
 
   <div class="chatbox">
     <div class="chatlog" id="chatlog"></div>
-
     <div id="residentialImageContainer">
-      <img id="residentialImage" src="residential property.jpg" alt="Residential Plan">
+      <img id="residentialImage" src="residential property.jpg" alt="Residential Plan" />
     </div>
-
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="Type your message..." />
+      <input id="userInput" type="text" placeholder="Type your message...">
       <button onclick="sendMessage()">Send</button>
-
-      <div class="quick-buttons">
-        <button onclick="handleQuickReply('1')">1️⃣ Services</button>
-        <button onclick="handleQuickReply('2')">2️⃣ Plans</button>
-        <button onclick="handleQuickReply('3')">3️⃣ Contact</button>
-      </div>
-    </div>
-
-    <div class="contact-links">
-      <p>Need more help? 📞 Contact us:</p>
-      <a href="mailto:manoj.psid@gmail.com" target="_blank">Email Us</a>
-      <a href="https://wa.me/919902528018?text=Hi%20I%20need%20more%20info%20about%20your%20services" target="_blank">WhatsApp Us</a>
-      <a href="https://www.psidtech.com" target="_blank">Visit Our Website</a>
+      <div class="quick-buttons"></div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const chatlog = document.getElementById('chatlog');
+
+    function sendMessage() {
+      const inputField = document.getElementById('userInput');
+      const userInput = inputField.value.trim();
+      if (!userInput) return;
+
+      appendMessage('user', userInput);
+      inputField.value = '';
+      appendMessage('bot', "🤖 Typing...");
+
+      setTimeout(() => {
+        if (chatlog.lastChild && chatlog.lastChild.classList.contains('bot')) {
+          chatlog.removeChild(chatlog.lastChild);
+        }
+
+        const response = getBotResponse(userInput);
+        appendMessage('bot', response);
+      }, 1500);
+    }
+
+    function appendMessage(sender, message) {
+      const div = document.createElement('div');
+      div.className = 'message ' + sender;
+      div.innerHTML = message.replace(/(https?:\/\/[^\s]+)/g, url => `<a href="${url}" target="_blank">${url}</a>`).replace(/\n/g, "<br>");
+      chatlog.appendChild(div);
+      chatlog.scrollTop = chatlog.scrollHeight;
+    }
+
+    function handleQuickReply(value) {
+      document.getElementById('userInput').value = value;
+      sendMessage();
+    }
+
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+
+      if (input === '1') {
+        document.getElementById('residentialImageContainer').style.display = 'none';
+        return `🔧 Our Services include:\n\n🏗 Construction\n🏢 Property Management\n💻 Billing Software & Hardware\n🦺 Safety Equipment\n🌐 Web Design & Application\n📱 Android & iOS Development`;
+      } else if (input === '2') {
+        document.getElementById('residentialImageContainer').style.display = 'none';
+        showQuickReplies(['Residential', 'Residential Villa', 'Commercial']);
+        return "📋 Please choose a plan type:";
+      } else if (input === 'residential') {
+        document.getElementById('residentialImageContainer').style.display = 'block';
+        return "🏠 Residential Plan includes basic apartment and home setups.";
+      } else if (input === 'residential villa') {
+        document.getElementById('residentialImageContainer').style.display = 'none';
+        return "🏡 Residential Villa Plan includes premium villa construction and design.";
+      } else if (input === 'commercial') {
+        document.getElementById('residentialImageContainer').style.display = 'none';
+        return "🏢 Commercial Plan includes office, warehouse, and business property solutions.";
+      } else if (input === '3') {
+        document.getElementById('residentialImageContainer').style.display = 'none';
+        return `📍 Our Location:\n🏠 PSID Technologies, Bengaluru, Karnataka\n\n🗺 <a href='https://www.google.com/maps/place/Bengaluru,+Karnataka' target='_blank'>Open Location in Maps</a>`;
+      }
+
+      document.getElementById('residentialImageContainer').style.display = 'none';
+      showQuickReplies(['1', '2', '3']);
+      return "🤖 I'm here to help! Please choose an option:\n\n1️⃣ View Our Services\n2️⃣ View Our Plans\n3️⃣ Contact Us / Find Our Location";
+    }
+
+    function showQuickReplies(options) {
+      const container = document.querySelector('.quick-buttons');
+      container.innerHTML = '';
+      options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option;
+        btn.onclick = () => handleQuickReply(option.toLowerCase());
+        container.appendChild(btn);
+      });
+    }
+
+    document.getElementById("userInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+
+    window.onload = function () {
+      appendMessage('bot', "👋 Hello! Welcome to Property Services!");
+      appendMessage('bot', "Please choose an option:\n\n1️⃣ View Our Services\n2️⃣ View Our Plans\n3️⃣ Contact Us / Find Our Location");
+    };
+  </script>
 </body>
 </html>
+
 
 
